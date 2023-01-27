@@ -19,6 +19,7 @@ public class Principal {
         System.out.println("3 - Buscar vehiculo");
         System.out.println("4 - Modificar kilometros de vehiculo");
         System.out.println("5 - Salir");
+        System.out.println("Linea de prueba");
 
         int opcion = teclado.nextInt();
         teclado.nextLine();
