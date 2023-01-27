@@ -98,4 +98,8 @@ public class Vehiculo {
         this.num_kms = this.num_kms + nuevos_kms;
     }
 
+    @Override
+    public String toString() {
+        return "Vehiculo{" + "marca=" + marca + ", matricula=" + matricula + ", descripcion=" + descripcion + "precio="+ precio + '}';
+    }
 }
