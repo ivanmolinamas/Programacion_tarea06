@@ -36,6 +36,9 @@ public class Principal {
 
         boolean check = true;
         
+        // MAXIMO 50 COCHES
+        // CREAR ARRAY Y CREAR CLASE VEHICULO
+        
         //vehiculo coche1 = null;
         
         System.out.println("BIENVENIDO");
@@ -46,6 +49,11 @@ public class Principal {
           
           switch(opcion){
               case 1:
+                  // aqui va la creacion de un nuevo vehiculo, se pediran los datos
+                  // se añadiran a variables y luego con esas variables se creara
+                  //el objeto con argumentos.
+                  //hay que buscar la forma de que se haga un objeto nuevo cada vez
+                  // maximo 50 coches
                   System.out.println("Nuevo Vehiculo");
               break;
               case 2:
