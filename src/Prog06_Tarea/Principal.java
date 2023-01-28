@@ -1,5 +1,6 @@
 package Prog06_Tarea;
 
+import PROG5_Ejerc1_util.Validar;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -12,6 +13,8 @@ public class Principal {
     static Scanner teclado = new Scanner(System.in);
 
     public static int mostrarMenu() {
+        // metodo para imprimir la opcion de menu por pantalla
+        // este metodo tambien recoge la opcion
         System.out.println("GESTION DE VEHICULOS DEL CONCESIONARIO");
 
         System.out.println("1 - Nuevo vehiculo");
@@ -30,7 +33,8 @@ public class Principal {
     public static void main(String[] args) {
         int opcion;
 
-        String marca, matricula, descripcion, propietario, dni;
+        //variables que se usaran para recoger información del vehiculo.
+        String marca, matricula, busca_matricula, descripcion, propietario, dni;
         int kilometros, precio, nuevosKilometros;
         int dia_matri,mes_matri,anyo_matri;
         LocalDate matri_fecha;
@@ -38,8 +42,6 @@ public class Principal {
 
         
         Concesionario concesionario = new Concesionario();
-        
-        Vehiculo v;
         
         boolean check = true;
         
@@ -69,40 +71,67 @@ public class Principal {
                   
                   System.out.println("Introduce la marca del vehiculo");
                   matricula = teclado.nextLine();
+
+                  // con do while creamos bucle hasta que la matricula sea correcta
+                  do{
+                      System.out.println("Introduce la matricula del vehciulo en formato NNNNLLL");
+                      matricula = teclado.nextLine(); 
+                      // con el if lanzamos el mensaje de matricula incorrecta
+                      if(!Validar.validarMatricula(matricula)){
+                          System.out.println("Matricula inocrrecta");
+                      }
+                  }while(!Validar.validarMatricula(matricula));
                   
-                  System.out.println("Introduce la matricula del vehciulo en formato NNNNLLL");
-                  matricula = teclado.nextLine();
-                  // aqui hay que validar que la matricula sea correcta
-                  
-                  System.out.println("Introduzca los kilometros");
-                  kilometros = teclado.nextInt();
-                  teclado.nextLine();
+                  do{
+                      System.out.println("Introduzca los kilometros");
+                      kilometros = teclado.nextInt();
+                      teclado.nextLine(); 
+                      if(0>kilometros){
+                          System.out.println("Kilometros incorrectos");
+                      }
+                  }while(0 > kilometros);
+                 
                  
                   System.out.println("Introduce precio del vehiculo");
                   precio = teclado.nextInt();
                   teclado.nextLine();
                   
-                  System.out.println("Introduce el nombre del propietario");
-                  propietario = teclado.nextLine();
+                  do {
+                      System.out.println("Introduce el nombre del propietario");
+                      propietario = teclado.nextLine();
+                      if(!Validar.validarNombre(propietario)){
+                          System.out.println("Nombre incorrecto, introduzca nombre y apellidos");
+                      }
+                  } while (!Validar.validarNombre(propietario));
+
+                  // Validación del DNI, con un do while se pedira hasta que sea correcto
+                  do{
+                    System.out.println("Introduce el DNI del propietario");
+                  dni = teclado.nextLine(); 
+                  if(!Validar.validarDNI(dni)){
+                      System.out.println("DNI incorrecto.");
+                  }
+                  }while(!Validar.validarDNI(dni));
+  
+                  do{
+                      System.out.println("Introduce el dia de matriculacion");
+                      dia_matri = teclado.nextInt();
+                      teclado.nextLine();
+
+                      System.out.println("Introduce el mes de matriculacion");
+                      mes_matri = teclado.nextInt();
+                      teclado.nextLine();;
+
+                      System.out.println("Introduce el año de matricuiacon");
+                      anyo_matri = teclado.nextInt();
+                      teclado.nextLine();
+                   
+                       matri_fecha = LocalDate.of(anyo_matri, mes_matri, dia_matri);
+                       if(!Validar.validaFecha(matri_fecha)){
+                           System.out.println("Fecha incorrecta, superior a la actual");
+                       }
+                   }while(!Validar.validaFecha(matri_fecha));       
                   
-                  System.out.println("Introduce el DNI del propietario");
-                  dni = teclado.nextLine();
-                  
-                  // comprobar el DNI
-                  
-                  System.out.println("Introduce el dia de matriculación");
-                  dia_matri = teclado.nextInt();
-                  teclado.nextLine();
-                  
-                  System.out.println("Introduce el mes de matriculación");
-                  mes_matri = teclado.nextInt();
-                  teclado.nextLine();;
-                  
-                  System.out.println("Introduce el año de matricuiacón");
-                  anyo_matri = teclado.nextInt();
-                  teclado.nextLine();
-                          
-                  matri_fecha = LocalDate.of(anyo_matri, mes_matri, dia_matri);
             
                           
               break;
@@ -114,44 +143,38 @@ public class Principal {
               case 3:
                   System.out.println("Buscar Vehiculo");
                   System.out.println("Inserta matricula a buscar");
-                  matricula = teclado.next();
+                  busca_matricula = teclado.next();
                   
-                  v = concesionario.buscaVehiculo(matricula);
+                  
+                  
+                  String v = concesionario.buscaVehiculo(busca_matricula);
                   
                   if( v != null){
-                      System.out.println(v.getMarca());
-                      System.out.println(v.getMatricula());
-                      System.out.println(v.getPrecio());
+                      System.out.println(v);
                   }else{
-                      System.out.println("No existe vehículo con la matrícula introducida");
+                      System.out.println("No existe vehiculo con la matricula introducida");
                   }
-
               break;
               case 4:
                   System.out.println("Modificar kilometros");
                   
                   System.out.println("Inserta la matricula del coche");
-                  matricula = teclado.next();
+                  busca_matricula = teclado.nextLine();
                   System.out.println("Inserta el nuevo numero de kilometros");
                   nuevosKilometros = teclado.nextInt();
                  
-                   if(concesionario.actualizaKms(matricula, nuevosKilometros)){
+                   if(concesionario.actualizaKms(busca_matricula, nuevosKilometros)){
                        System.out.println("Se han actualizado los kilometros correctamente");
                   }else{
                       System.out.println("No existe vehículo con la matrícula introducida");
                   }
-                  
               break;
               case 5:
                   System.out.println("Fin del programa. Adios!");
               break;
               default:
                   System.out.println("Opcion incorrecta.");
-              
           }
         }while(opcion != 5);
-        
-        
     }
-
 }

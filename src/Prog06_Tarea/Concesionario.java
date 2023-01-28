@@ -34,14 +34,14 @@ public class Concesionario {
     public int insertarVehiculo(Vehiculo v) {
 
         if (this.numVehiculos == this.Vehiculos.length) {
-            return -1;
+            return -1; // concesionario completo
         }
         if (this.buscaVehiculo(v.getMatricula()) != null) {
-            return -2;
+            return -2;//vehiculo ya existe
         } else {
             this.Vehiculos[this.numVehiculos] = v;
             this.numVehiculos++;
-            return 0;
+            return 0;// creado
         }
     }
 // metodo para listar vehiculos
