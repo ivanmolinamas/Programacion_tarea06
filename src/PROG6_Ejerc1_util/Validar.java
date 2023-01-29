@@ -34,7 +34,7 @@ public class Validar {
                 return false;
             }
         }
-        if (numEspacios >= 2) {
+        if(numEspacios >= 2) {
             return true;
         }
         return false;

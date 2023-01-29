@@ -14,6 +14,7 @@ public class Vehiculo {
     int num_kms, precio;
     LocalDate fecha_matri;
 
+    
     public Vehiculo(String marca, String matricula, String descripcion, String propietario, String dni_propietario, int num_kms, int precio, LocalDate fecha_matri) {
         this.marca = marca;
         this.matricula = matricula;

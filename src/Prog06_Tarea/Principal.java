@@ -1,7 +1,9 @@
 package Prog06_Tarea;
 
-import PROG5_Ejerc1_util.Validar;
+import PROG6_Ejerc1_util.Validar;
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -32,13 +34,16 @@ public class Principal {
 
     public static void main(String[] args) {
         int opcion;
+        
+        Vehiculo v = null;
 
         //variables que se usaran para recoger información del vehiculo.
         String marca, matricula, busca_matricula, descripcion, propietario, dni;
         int kilometros, precio, nuevosKilometros;
         int dia_matri,mes_matri,anyo_matri;
-        LocalDate matri_fecha;
+        LocalDate matri_fecha=null;
         int matri_dia, matri_mes, matri_anyo;
+        boolean correcto;
 
         
         Concesionario concesionario = new Concesionario();
@@ -70,7 +75,11 @@ public class Principal {
                   // se pasaran todas a la vez al constructor.
                   
                   System.out.println("Introduce la marca del vehiculo");
-                  matricula = teclado.nextLine();
+                  marca = teclado.nextLine();
+                  
+                  System.out.println("Introduce la descripcion del vehiculo");
+                  descripcion = teclado.nextLine();
+                  
 
                   // con do while creamos bucle hasta que la matricula sea correcta
                   do{
@@ -82,6 +91,7 @@ public class Principal {
                       }
                   }while(!Validar.validarMatricula(matricula));
                   
+                  // igual que antes, con do while comprobamos que los kilometros son positivos
                   do{
                       System.out.println("Introduzca los kilometros");
                       kilometros = teclado.nextInt();
@@ -113,26 +123,64 @@ public class Principal {
                   }
                   }while(!Validar.validarDNI(dni));
   
-                  do{
-                      System.out.println("Introduce el dia de matriculacion");
-                      dia_matri = teclado.nextInt();
-                      teclado.nextLine();
+                  // validar fecha correcta
+                  do {
+                      correcto = true;
 
-                      System.out.println("Introduce el mes de matriculacion");
-                      mes_matri = teclado.nextInt();
-                      teclado.nextLine();;
+                      try {
+                          System.out.println("Introduce el dia de matriculacion");
+                          dia_matri = teclado.nextInt();
+                          teclado.nextLine();
 
-                      System.out.println("Introduce el año de matricuiacon");
-                      anyo_matri = teclado.nextInt();
-                      teclado.nextLine();
-                   
-                       matri_fecha = LocalDate.of(anyo_matri, mes_matri, dia_matri);
-                       if(!Validar.validaFecha(matri_fecha)){
-                           System.out.println("Fecha incorrecta, superior a la actual");
-                       }
-                   }while(!Validar.validaFecha(matri_fecha));       
+                          System.out.println("Introduce el mes de matriculacion");
+                          mes_matri = teclado.nextInt();
+                          teclado.nextLine();
+
+                          System.out.println("Introduce el año de matricuiacon");
+                          anyo_matri = teclado.nextInt();
+                          teclado.nextLine();
+                          
+                          matri_fecha = LocalDate.of(anyo_matri, mes_matri, dia_matri);
+                      } catch (InputMismatchException e) {
+                          correcto = false;
+                          teclado.next();
+                          System.out.println("Fecha incorrecta");
+                      }catch(DateTimeException e){
+                          correcto = false;
+                          System.out.println("Fecha incorrecta");
+                      }
+                      
+                      
+                      
+                      
+//                      if (!Validar.validaFecha(matri_fecha)) {
+//                          System.out.println("Fecha incorrecta, superior a la actual");
+//                          correcto = true;
+//                      }
+                  } while (!correcto); 
+                  // COMPROBAR FECHA????????????????????????????????
+//                  boolean comprobarfecha=true;
+//                  do{
+//                      if(Validar.validaFecha(matri_fecha)){
+//                          comprobarfecha = true;
+//                      }else{
+//                          comprobarfecha=false;
+//                      }
+//                  }while(!comprobarfecha);
                   
-            
+                  // ahora introducimos los datos en un vehiculo y posteriormente al array
+                  
+                  v = new Vehiculo(marca,matricula,descripcion,propietario,dni,kilometros,precio,matri_fecha);
+                  
+//                  marca;
+//        this.matricula = matricula;
+//        this.descripcion = descripcion;
+//        this.propietario = propietario;
+//        this.dni_propietario = dni_propietario;
+//        this.num_kms = num_kms;
+//        this.precio = precio;
+//        this.fecha_matri = fecha_matri;
+//            
                           
               break;
               case 2:
@@ -145,9 +193,9 @@ public class Principal {
                   System.out.println("Inserta matricula a buscar");
                   busca_matricula = teclado.next();
                   
+                  // COMPROBAR ESTE CASO
                   
-                  
-                  String v = concesionario.buscaVehiculo(busca_matricula);
+//                  String v = concesionario.buscaVehiculo(busca_matricula);
                   
                   if( v != null){
                       System.out.println(v);
