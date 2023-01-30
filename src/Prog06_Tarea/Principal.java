@@ -44,17 +44,11 @@ public class Principal {
         LocalDate matri_fecha=null;
         int matri_dia, matri_mes, matri_anyo;
         boolean correcto;
-
         
-        Concesionario concesionario = new Concesionario();
+       Concesionario concesionario = new Concesionario();
         
         boolean check = true;
-        
-        // MAXIMO 50 COCHES
-        // CREAR ARRAY Y CREAR CLASE VEHICULO
-        
-        //vehiculo coche1 = null;
-        
+
         System.out.println("BIENVENIDO");
         
         
@@ -111,10 +105,10 @@ public class Principal {
                   // se valida que tenga dos espacios, a traves de la calse validar
                   // con el metodo validarNombre
                   do {
-                      System.out.println("Introduce el nombre del propietario");
+                      System.out.println("Introduce el nombre y apellidos del propietario");
                       propietario = teclado.nextLine();
                       if (!Validar.validarNombre(propietario)) {
-                          System.out.println("Nombre incorrecto, introduzca nombre y apellidos");
+                          System.out.println("Nombre incorrecto, introduzca nombre y apellidos formato:Nombre Apellido1 Apellido2");
                       }
                   } while (!Validar.validarNombre(propietario));
 
@@ -142,10 +136,18 @@ public class Principal {
                           mes_matri = teclado.nextInt();
                           teclado.nextLine();
 
-                          System.out.println("Introduce el año de matricuiacon");
+                          System.out.println("Introduce el anyo de matricuiacon");
                           anyo_matri = teclado.nextInt();
 
                           matri_fecha = LocalDate.of(anyo_matri, mes_matri, dia_matri);
+
+                          // comprobamos que la fecha es anterior a la actual
+                              if (Validar.validaFecha(matri_fecha)) {
+                                  correcto = true;
+                              } else {
+                                  correcto = false;
+                                  System.out.println("La fecha no es anterior a la fecha actual");
+                              }
                       } catch (InputMismatchException e) {
                           correcto = false;
                           teclado.next();
@@ -157,20 +159,12 @@ public class Principal {
                       // se puede mejorar validando que la fecha es inferior a la actual
                       // si todo lo anterio resta correcto se sale del bucle
                   } while (!correcto);
-                  // COMPROBAR FECHA????????????????????????????????
-                  //                  boolean comprobarfecha=true;
-                  //                  do{
-                  //                      if(Validar.validaFecha(matri_fecha)){
-                  //                          comprobarfecha = true;
-                  //                      }else{
-                  //                          comprobarfecha=false;
-                  //                      }
-                  //                  }while(!comprobarfecha);
+
 
                   // ahora introducimos los datos en un vehiculo y posteriormente al array
                   v = new Vehiculo(marca, matricula, descripcion, propietario, dni, kilometros, precio, matri_fecha);
                   //con el objeto vehiculo compelto, pasamos a añadir lo al array
-
+                  System.out.println("");
                   switch (concesionario.insertarVehiculo(v)) {
                       case -2:
                           System.out.println("El vehiculo existe");
@@ -182,7 +176,7 @@ public class Principal {
                           System.out.println("Vehiculo insertado correctamente");
                           break;
                   }
-
+                  System.out.println("");
               break;
               case 2:
                   System.out.println("Listar Vehiculos");
