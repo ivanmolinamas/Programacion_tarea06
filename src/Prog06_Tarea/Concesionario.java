@@ -1,26 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Prog06_Tarea;
 
 /**
  *
  * @author IVAN
+ * 
+ * Esta clase Concesionario tiene los metodos para poder interactuar con la principal
+ * y modificar y crear objetos en el array Concesionario.
  */
 public class Concesionario {
-    
-// array
+    // atributos del array
     private Vehiculo[] Vehiculos;
     private int numVehiculos;
-    
-// constructor
+ 
+    // 
+
+    /**
+     * Array de 50 Vehiculos (objeto Vehiculo), este empieza en 0
+     */
     public Concesionario() {
         this.numVehiculos = 0;
         this.Vehiculos = new Vehiculo[50];
     }
-// metodo para buscar vehiculos
+    
+    /**
+     * Metodo para buscar vehiculos
+     * @param matricula Del vehiculo que se quiere buscar
+     * @return Devuelve un toString con los datos del vehiculo en caso de existir,
+     * en caso contrairo devuelve un null.
+     */
     public String buscaVehiculo(String matricula) {
+        /**
+         * este metodo busca el vehiculo dando una matricula por argumento
+         * si existe ese vehiculo con matricula, devuelve un toString
+         * en caso contrario devuelve null
+         */
 
         for (int i = 0; i < numVehiculos; i++) {
             Vehiculo v = this.Vehiculos[i];
@@ -30,9 +43,16 @@ public class Concesionario {
         }
         return null;
     }
-// metodo para insertar vehiculos
+ 
+    /**
+     * metodo para insertar vehiculos
+     * @param v es el objeto vehiculo cual se va a añadir al array
+     * @return si el array esta completo devuelve -1
+     * si el vehiculo ya existe, porque lo comprueba, devuelve -2
+     * si lo introduce, devuelve 0, ademas suma al int numVehiculos
+     */
     public int insertarVehiculo(Vehiculo v) {
-
+   
         if (this.numVehiculos == this.Vehiculos.length) {
             return -1; // concesionario completo
         }
@@ -44,15 +64,25 @@ public class Concesionario {
             return 0;// creado
         }
     }
-// metodo para listar vehiculos
+ 
+    /**Metodo para listar vehiculos
+     * Devuelve un toString de todos los objetos del array que existan.
+     * 
+     */
     public void listarVehiculos() {
+        // con un bucle for hacmeos que vaya pasando por todo el array
         for (int i = 0; i < numVehiculos; i++) {
             Vehiculo v = this.Vehiculos[i];
             System.out.println(v.toString());
         }
     }
-    
-    // metodo para actualizar los kilometros
+     
+    /**
+     * metodo para actualizar los kilometros
+     * @param matricula matricula cual se quiere buscar
+     * @param kms Kilometros nuevos que se quieren añadir
+     * @return true si lo ha realizado con extito, False si no lo ha realizado.
+     */
     public boolean actualizaKms(String matricula, int kms){
         // con el bucle for se inicia una sencuencia de numeros hasta el numero de 
         //vehiculos que existen, ese numoero se añade como variable al objeto vehiculo

@@ -5,8 +5,10 @@ import java.time.Period;
 
 /**
  *
- * @author IVAN clase Vehiculo, aqui estara la clase y el constructor de
+ * @author IVAN 
+ * clase Vehiculo, aqui estara la clase y el constructor de
  * vehiculo con sus setters and getters
+ * tambien tiene toString con todos los variables del Vehiculo
  */
 public class Vehiculo {
 
