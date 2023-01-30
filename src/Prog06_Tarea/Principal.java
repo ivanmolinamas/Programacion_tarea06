@@ -138,7 +138,7 @@ public class Principal {
 
                           System.out.println("Introduce el año de matricuiacon");
                           anyo_matri = teclado.nextInt();
-                          teclado.nextLine();
+//                          teclado.nextLine();
                           
                           matri_fecha = LocalDate.of(anyo_matri, mes_matri, dia_matri);
                       } catch (InputMismatchException e) {
