@@ -57,8 +57,6 @@ public class Principal {
 
         Concesionario concesionario = new Concesionario();
 
-        boolean check = true;
-
         System.out.println("BIENVENIDO");
 
         do {
