@@ -1,6 +1,6 @@
 package Prog06_Tarea;
 
-import PROG6_Ejerc1_util.Validar;
+import PROG06_Ejerc1_util.Validar;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
